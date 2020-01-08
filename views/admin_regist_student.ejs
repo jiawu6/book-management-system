@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<!-- active title -->
+		<title><%= title%></title>
+
+    	<!-- stylesheet -->
+		<link rel="stylesheet" href="//cdn.bootcss.com/semantic-ui/2.1.8/semantic.min.css">
+
+    	<!-- javascript -->
+	    <script src="//cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
+	    <script src="//cdn.bootcss.com/semantic-ui/2.1.8/semantic.min.js"></script>
+	</head>
+
+	<body>
+
+	<!---------- page admin/regist-student begin ---------->
+
+		<!---------- box ---------->
+		<div class="nav">
+		  <div class="ui grid">
+		    <div class="four wide column"></div>
+		    <div class="eight wide column">
+		    </div>
+		  </div>
+		</div>
+
+		<!---------- menu ---------->
+		<div class="nav-setting">
+		    <div class="ui floating dropdown button">
+		      <i class="icon bars"></i>
+		      <div class="menu">
+		      	<% if(admin) { %>
+		          <a class="item" href="/admin/logout"><h1>LOGOUT</h1></a>	
+		        <% } else { %>	      		
+		          <a class="item" href="/admin"><h1>LOGIN</h1></a>
+		        <% } %>
+		          <a class="item" href="/admin/regist-student"><h1>REGISTER</h1></a>
+		          <a class="item" href="/admin/edit-info"><h1>EDIT-INFO</h1></a>
+		          <a class="item" href="/do-books"><h1>DO-BOOKS</h1></a>		      
+		      </div>
+		    </div>
+		</div>	
+
+		<!---------- form begin ---------->
+		<div class="ui grid">
+		  <div class="four wide column"></div>
+		  <div class="eight wide column">
+		    <form class="ui form segment" method="post" action="/admin/regist-student">
+		        <label><h3>Student ID</h3></label>
+		        <input placeholder="input Student ID" type="text" name="studentid">
+		        <label><h3>Password</h3></label>
+		        <input placeholder="input Password" type="password" name="password">
+		        <label><h3>Repeat Password</h3></label>
+		        <input placeholder="please Repeat Password" type="password" name="repassword">
+		        <label><h3>Name</h3></label>
+		        <input placeholder="input Name" type="text" name="name">
+<!-- 		        <label><h3>Gender</h3></label>
+		        <select class="ui compact selection dropdown" name="gender">
+		          <option value="m">boy</option>
+		          <option value="f">girl</option>
+		          <option value="x">secret</option>
+		        </select>
+		        <label><h3>College</h3></label>
+		        <input placeholder="input College" type="text" name="repassword"> -->
+		        <label><h3>Mobile</h3></label>
+		        <input placeholder="input Mobile" name="mobile">
+		      <input type="submit" class="ui button fluid" value="Regist">
+		    </form>
+		  </div>
+		</div>
+
+		<!---------- form end ---------->
+
+		<!-- listen user actions -->
+		  <script type="text/javascript">
+		   $(document).ready(function () {
+		      // action-show menu
+		      $('.ui.dropdown').dropdown();
+		    })
+		  </script>
+
+	<!---------- page admin/regist-student end ---------->
+
+  	</body>
+</html>

@@ -1,0 +1,385 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;" name="viewport">
+    <meta name="description" content="the books management system that have client and server"/>
+
+    <link rel="shortcut icon" href="favicon.ico">
+    <!-- active title -->
+    <title><%= title %></title>
+
+    <!-- stylesheet -->
+    <link href="css/reset.css" rel="stylesheet">
+    <link href="css/css.css" rel="stylesheet">
+    <link href="css/responsive.css" rel="stylesheet">
+    <link href="fonts/fonts.css" rel="stylesheet">
+
+    <!-- javascript -->
+    <script src="js/jquery-1.11.2.min.js"></script>
+    <script src="js/jquery.easing.js"></script>
+    <script src="js/jquery.flexslider-min.js"></script>
+  </head>
+
+  <body id="home">
+  <!---------- page index begin ---------->
+
+    <!---------- active loading ---------->
+    <div id="loading">
+      <img src="img/loading.png" id="load">
+      <div id="latido" class="loadingGlow"></div>
+      <div id="circle"></div>
+    </div>
+
+    <!---------- menu ---------->    
+    <header>
+
+      <!---------- float logo_left ---------->          
+      <div class="logo">
+        <a href="/"><img src="img/logo-azul.png" class="blue"/></a>
+      </div>
+      
+      <div class="btnMenu">
+        <i></i>
+        <i></i>
+        <i></i>
+      </div>
+      <nav>
+        <div class="botonera">
+          <i></i>
+          <ul>
+            <li>
+              <a href="/" class="act">home
+                <i></i>
+              </a>
+            </li>
+            <li>
+              <!---------- active menu ---------->
+              <% if(user) { %>
+                <a href="/logout">log out
+                  <i></i>
+                </a>
+              <% } else { %>
+                <a href="/login">log in
+                  <i></i>
+                </a> 
+              <% } %>             
+            </li>
+            <% if(studentid) { %>
+              <li>
+                <a href="/search?studentid=<%= studentid %>">search
+                  <i></i>
+                </a>
+              </li>
+            <% } %>
+            <li>
+              <!---------- active menu ---------->
+              <% if(user) { %>
+                <a id="gosetting" href="javascript:void(0);" onclick="gotosetting()">setting
+                  <i></i>
+                </a>
+              <% } %>             
+            </li>            
+          </ul>
+          <i></i>
+        </div>
+      </nav>
+    </header>
+
+    <!---------- active slider ---------->        
+<!--     <div id="nav_main">
+      <div class="nav-main" data-section="inicio"></div>
+      <div class="nav-main" data-section="slide1"></div>
+      <div class="nav-main" data-section="slide2"></div>
+      <div class="nav-main" data-section="slide3"></div>
+    </div> -->
+
+    <!---------- first introduction ---------->        
+    <section id="inicio" class="salmonGlow in" data-rel="#slide1">
+      <div class="splash layer" data-depth="0.60" style="z-index:9999;margin-left:1%;">
+        <div class="welcome" style="height:500px; width:630px; text-align:left">
+          <br>
+          <hr class="fat blue">
+          <a href="/">
+            <p>
+              <strong>Hello Guys,Welcome</strong>
+            </p>
+          </a>
+          <hr>
+        </div>
+      </div>
+      <a href="#slide1" class="arrowDown"><img src="img/arrow-home.png"></a>
+    </section>
+
+    <!---------- second introduction ---------->
+    <section id="slide1" class="blueGlow" data-rel="#slide2">
+      <div class="splash layer" data-depth="0.60" style="z-index:9999;margin-top:10%;margin-left:1%;">
+        <div class="welcome" style="height:500px; width:580px; text-align:left">
+          <br>
+          <hr class="fat">
+          <% if(user) { %>
+            <p>
+              <strong>you can do<br>
+                what you want</strong>
+            </p>
+          <% } else { %>
+            <a href="/login">
+              <p>
+                <strong>more sever?<br>
+                  please>></strong>log in
+              </p>
+            </a>
+          <% } %>          
+          <hr>
+        </div>
+      </div>
+      <a href="#slide2" class="arrowDown"><img src="img/arrow-home-salmon.png"></a>
+    </section>
+
+    <!---------- third introduction ---------->
+    <section id="slide2" class="salmonGlow" data-rel="#slide3">
+      <div class="splash layer" data-depth="0.60" style="z-index:9999;margin-top:10%;margin-left:2%;">
+        <div class="welcome" style="height:300px; width:660px; text-align:left; margin-top:5%">
+          <br>
+          <hr class="fat blue">
+          <% if(user) { %>
+            <p>
+              <strong>do you want to</strong>search books?
+              <!---------- form begin ---------->              
+              <div class="pane-content">
+                <form class="sulair-search-bento-remote" action="/details?" method="post" id="search-block-form" accept-charset="UTF-8">
+                  <div>
+                   <div class="form-item form-type-textfield form-item-q">
+                     <input placeholder="Enter the books you wish to search for..." type="text" id="edit-q" name="q"value="" size="50" maxlength="128" class="form-text" style="font-size: 25px;margin-left: 1%;" />
+                   </div>
+                   <div class="form-actions form-wrapper" id="edit-actions">
+                    <input type="submit" id="edit-submit" value="Search" class="form-submit" style="font-size:26px;margin-top: 20px;margin-left: 38%;" onclick="blockform()" />
+                   </div>
+                  </div>
+               </form>    
+            </div>
+            <!---------- form end ----------> 
+            </p>
+          <% } else { %>
+            <p>
+                <strong>do you want to</strong>search books?
+                <a href="/login">
+                  <img src="img/arrow-ir-blue.png">
+                </a>
+              </p>  
+          <% } %>        
+          <hr>
+        </div>
+      </div>
+<!--       <a href="#slide3" class="arrowDown"><img src="img/arrow-home.png"></a>
+ -->    </section>
+
+    <footer id="footer">
+      <div class="social">
+        <a class="pastille facebook" target="_blank" href="http://facebook.com/"><span class="icon">facebook</span><span class="icon roll"></span></a>
+        <a class="pastille twitter" target="_blank" href="http://twitter.com/"><span class="icon">twitter</span><span class="icon roll"></span></a>
+        <a class="pastille instagram" target="_blank" href="http://instagram.com/"><span class="icon">instagram</span><span class="icon roll"></span></a>
+      </div>
+    </footer>
+
+  <!---------- page index end ---------->
+
+
+    <script src="js/parallax.js"></script>
+    <script src="js/js.js"></script>
+    <script>
+$(document).ready(function () {
+    //PARALLAX
+    //if($(window).width() > 768){
+    var scene = document.getElementById('inicio');
+    var scene1 = document.getElementById('slide1');
+    var scene2 = document.getElementById('slide2');
+    var scene3 = document.getElementById('slide3');
+    var parallax = new Parallax(scene);
+    var parallax = new Parallax(slide1);
+    var parallax = new Parallax(slide2);
+    var parallax = new Parallax(slide3);
+    //}
+    //CANTIDAD SLIDES
+    var cantSlide = $('.flexManifiesto ul.slides li').length;
+    $('#cant').html('/' + cantSlide);
+    $('.flexSivori').flexslider({
+        animation: "fade"
+    });
+    $('.flexManifiesto').flexslider({
+        animation: "slide"
+    });
+    //HEADER SCROLL
+    $(window).scroll(function (e) {
+        var scrol = $(window).scrollTop();
+        var section = $('section').height() - 100;
+        if (scrol >= section && scrol < (section * 2)) {
+            $('#home header').addClass('headSalmon');
+            $('nav').addClass('navBlue');
+        }
+        else if (scrol > (section * 3)) {
+            $('#home header').addClass('headSalmon');
+            $('nav').addClass('navBlue');
+        }
+        else {
+            $('#home header').removeClass('headSalmon');
+            $('nav').removeClass('navBlue');
+        }
+        navMainScroll();
+    });
+});
+//botoncitos
+navMainScroll();
+$(".nav-main").on('click', function (e) {
+    e.preventDefault();
+    var newtop = $("#" + $(this).data("section")).offset().top;
+    scrolling = true;
+    $("html,body").stop(true, true).animate({ scrollTop: newtop + "px" }, 300, function () {
+        scrolling = false;
+    });
+});
+function navMainScroll() {
+    var scrol = $(window).scrollTop();
+    // nav lateral
+    $(".nav-main").each(function (e, i) {
+        var sec = $("#" + $(this).data("section"));
+        if (!sec.offset())
+            return;
+        if ((scrol + $(window).height() / 2) >= sec.offset().top && (sec.offset().top + $(window).height()) > scrol && !sec.hasClass("active")) {
+            $(".nav-main").removeClass("active");
+            $(this).addClass("active");
+        }
+    });
+}
+/*mouseWhell*/
+if ($(window).width() > 768) {
+    var scrol = 0;
+    var handleAvailable = true;
+    // function sube(){
+    //     window.onmousewheel = document.onmousewheel = null;
+    //     window.removeEventListener('DOMMouseScroll', wheel, false);
+    //             handleAvailable = true;
+    //     $(window).scroll(function(){
+    //         //alert($('body').scrollTop());
+    //         //alert($('#slide3').offset().top);
+    //         if($('body').scrollTop() < $('#slide3').offset().top){
+    //             scroll=1;
+    //             window.onmousewheel = document.onmousewheel = wheel;
+    //             window.addEventListener('DOMMouseScroll', wheel, false);
+    //             // handle(1);
+    //         }
+    //     });
+    // }
+    function handle(delta) {
+        //window.onmousewheel = document.onmousewheel = wheel;
+        //window.addEventListener('DOMMouseScroll', wheel, false);
+        if (handleAvailable == true) {
+            if (delta < 0) {
+                console.log(scrol);
+                handleAvailable = false;
+                if (scrol == 0) {
+                    playSection('slide1', 0);
+                    scrol = 1;
+                }
+                else if (scrol == 1) {
+                    playSection('slide2', 0);
+                    scrol = 2;
+                }
+                else if (scrol == 2) {
+                    playSection('slide3', 0);
+                    scrol = 3;
+                }
+                else if (scrol == 3) {
+                    //playSection('slide3', 350);
+                    window.onmousewheel = document.onmousewheel = null;
+                    window.removeEventListener('DOMMouseScroll', wheel, false);
+                    // sube();
+                    scrol = 4;
+                }
+                else if (scrol == 4) {
+                    playSection('footer', 0);
+                    scrol = 4;
+                }
+            }
+            else if (delta > 0) {
+                console.log(scrol);
+                handleAvailable = false;
+                if (scrol == 4) {
+                    //playSection('slide3', 350);
+                    scrol = 3;
+                }
+                else if (scrol == 3) {
+                    playSection('slide3', 0);
+                    scrol = 2;
+                }
+                else if (scrol == 2) {
+                    playSection('slide2', 0);
+                    scrol = 1;
+                }
+                else if (scrol == 1) {
+                    playSection('slide1', 0);
+                    scrol = 0;
+                }
+                else if (scrol == 0) {
+                    playSection('inicio', 0);
+                    scrol = 0;
+                }
+            }
+        }
+    }
+    function playSection(section, x) {
+        $('html, body').animate({ scrollTop: $('#' + section).offset().top + x }, 300);
+        setTimeout(function () {
+            handleAvailable = true; // una vez que termina el video habilito el scroll de nuevo
+        }, 1000);
+    }
+    function wheel(event) {
+        var delta = 0;
+        if (!event)
+            event = window.event;
+        if (event.wheelDelta) {
+            delta = event.wheelDelta / 120;
+        }
+        else if (event.detail) {
+            delta = -event.detail / 3;
+        }
+        if (delta)
+            handle(delta);
+        if (event.preventDefault)
+            event.preventDefault();
+        event.returnValue = false;
+    }
+    if (window.addEventListener)
+        /** DOMMouseScroll is for mozilla. */
+        window.addEventListener('DOMMouseScroll', wheel, false);
+    /** IE/Opera. */
+    window.onmousewheel = document.onmousewheel = wheel;
+}
+    </script>
+
+    <!---------- feedback button ---------->
+<!--     <script type="text/javascript">
+      function feedback() {
+        alert('Thanks For Your Feedback!');
+      };
+    </script> -->
+
+    <script type="text/javascript">
+      function gotosetting() {
+          var url = '/setting?studentid=' + '<%= studentid %>';
+          document.getElementById("gosetting").setAttribute("href",url);     
+      }
+    </script>
+
+    <script type="text/javascript">
+      function blockform() {
+        var formsheet = document.getElementById("search-block-form");
+        console.debug(">>check the action before edit:",formsheet.action);
+        formsheet.action = formsheet.action + "studentid=" + '<%= studentid %>';
+        console.debug(">>check the action after edit:",formsheet.action);
+      }
+    </script>
+
+  </body>
+</html>

@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<!-- active title -->
+		<title><%= title%></title>
+
+		<!-- stylesheet -->
+		<link rel="stylesheet" href="/css/admin.bookblock.css">
+	    <link rel="stylesheet" href="//cdn.bootcss.com/semantic-ui/2.1.8/semantic.min.css">		
+
+		<!-- javascript -->
+		<script type="text/javascript" src="js/vue.min.js"></script>
+	    <script src="//cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
+	    <script src="//cdn.bootcss.com/semantic-ui/2.1.8/semantic.min.js"></script>		
+	</head>
+
+	<body>
+
+	<!---------- page admin/do-books begin ---------->
+
+		<!-- define box -->
+		<div class="nav">
+		  <div class="ui grid">
+		    <div class="four wide column"></div>
+		    <div class="eight wide column">
+		    </div>
+		  </div>
+		</div>
+
+		<!-- define float menu -->
+		<div class="nav-setting">
+		    <div class="ui floating dropdown button">
+		      <i class="icon bars"></i>
+		      <div class="menu">
+		      	<% if(admin) { %>
+		          <a class="item" href="/admin/logout"><h1>LOGOUT</h1></a>	
+		        <% } else { %>	      		
+		          <a class="item" href="/admin"><h1>LOGIN</h1></a>
+		        <% } %>
+		          <a class="item" href="/admin/regist-student"><h1>REGISTER</h1></a>
+		          <a class="item" href="/admin/edit-info"><h1>EDIT-INFO</h1></a>
+		          <a class="item" href="/do-books"><h1>DO-BOOKS</h1></a>
+		      </div>
+		    </div>
+		</div>	
+
+		<div id="table">
+			<!---------- form sheet begin ---------->
+			<form id="formsheet" method="post" action="/do-books?">
+
+				<!---------- listen user input value ---------->
+				<div class="add">
+					<center>
+						<input type="text" v-model="addDetail.name" name="name" value="" placeholder="Bookname" />
+						<input type="text" v-model="addDetail.author" name="author" value="" placeholder="Author" />
+						<input type="text" v-model="addDetail.isbn" name="isbn" value="" placeholder="ISBN" />
+					</center>
+				</div>
+
+				<div class="add">
+					<center>
+						<input type="text"  v-model="addDetail.price" name="price" value="" placeholder="Price" />
+						<input type="text" v-model="addDetail.press" name="author" value="" placeholder="Press" />
+						<input type="text" v-model="addDetail.introduction" name="press" value="" placeholder="Introduction" />
+					</center>
+				</div>
+
+				<div class="add">
+					<center>
+						<input type="text" v-model="addDetail.id" name="id" value="" placeholder="ID" />
+						<input type="text" v-model="addDetail.place" name="place" value="" placeholder="Place" />
+						<input type="text" v-model="addDetail.type" name="type" value="" placeholder="Type" />
+					</center>
+				</div>
+
+				<div class="add">
+					<center>
+						<input type="text" v-model="addDetail.status" name="status" value="" placeholder="Status" />
+					</center>
+				</div>
+
+				<center>
+					<button @click="adddetail">ADD</button>
+				</center>
+
+			</form>
+			<!---------- form sheet end ---------->
+
+			<table cellpadding="0" cellspacing="0">
+
+				<!---------- nav bar ---------->
+				<thead>
+					<tr>
+						<th>name</th>
+						<th>author</th>
+						<th>isbn</th>
+						<th>price</th>
+						<th>press</th>
+						<th>introduction</th>
+						<th>id</th>
+						<th>place</th>
+						<th>type</th>
+						<th>satus</th>
+					</tr>
+				</thead>
+
+				<!---------- display data ---------->
+				<tbody>
+					<tr v-for="(item,index) in newsList">
+						<td>{{item.name}}</td>
+						<td width="10%">{{item.author}}</td>
+						<td width="15%">{{item.isbn}}</td>
+						<td width="20%">{{item.price}}</td>
+						<td width="25%">{{item.press}}</td>
+						<td width="30%">{{item.introduction}}</td>
+						<td width="35%">{{item.id}}</td>
+						<td width="40%">{{item.place}}</td>
+						<td width="45%">{{item.type}}</td>
+						<td width="50%">{{item.status}}</td>
+
+						<!---------- back data for edit/delete ---------->
+						<td width="15%">
+							<span @click="deletelist(item.name,index)" class="delete"><b>删</b><b style="margin-left: 9px;">除</b></span>
+							<span class="edit" @click="edit(item)"><b>编</b><b style="margin-left: 9px;">辑</b></span>
+						</td>
+
+					</tr>
+				</tbody>
+			</table>
+
+			<div id="mask" v-if="editlist">
+				<div class="mask">
+					<div class="title">
+						EDIT
+						<span @click="editlist=false">
+							X
+						</span>
+					</div>
+					<div class="content">
+						<input type="text" v-model="editDetail.name" name="name" value="" placeholder="Bookname" />
+						<input type="text" v-model="editDetail.author" name="author" value="" placeholder="Author" />
+						<input type="text" v-model="editDetail.isbn" name="isbn" value="" placeholder="ISBN" />
+						<input type="text"  v-model="editDetail.price" name="price" value="" placeholder="Price" />
+						<input type="text" v-model="editDetail.press" name="author" value="" placeholder="Press" />
+						<input type="text" v-model="editDetail.introduction" name="press" value="" placeholder="Introduction" />
+						<input type="text" v-model="editDetail.id" name="id" value="" placeholder="ID" />
+						<input type="text" v-model="editDetail.place" name="place" value="" placeholder="Place" />
+						<input type="text" v-model="editDetail.type" name="type" value="" placeholder="Type" />
+						<input type="text" v-model="editDetail.status" name="status" value="" placeholder="Status" />
+
+
+<!-- 						<input type="text" v-model="editDetail.title" name="title" value="" placeholder="标题" />
+						<input type="text" v-model="editDetail.user" name="user" value="" placeholder="发布人" />
+						<input type="date" v-model="editDetail.dates" name="date" value="" placeholder="发布时间" /> -->
+						<button @click="update">Update</button>
+						<button @click="editlist=false">Cancel</button>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!-- listen user actions -->
+		  <script type="text/javascript">
+		   $(document).ready(function () {
+		      // action-show menu
+		      $('.ui.dropdown').dropdown();
+		    })
+		  </script>
+
+		<script>
+			//transform to an array to store data
+			var newsList = JSON.parse(JSON.stringify(<%- newsList %>));
+
+			//create VUE object
+			var app = new Vue({
+				el: '#table',
+				data: {
+					addDetail: {},
+					editlist: false,
+					editDetail: {},
+
+					//receive books list data form server
+					newsList: newsList,
+
+					// newsList:[{"name":"Wuthering Heights","author":"Emily Bonte","isbn":"978-7-03-049030-8","price":"￡68.00","press":"Thomas Cautley Newby | London","introduction":"Wuthering Heights is the work of Emily Bronte, one of the Bronte sisters, and one of the representative works of English literature...","id":"A2681241","place":"Room501AreaB","type":"paperbook","status":"exist"}],
+
+					editid:''
+				},
+
+				mounted() {
+
+				},
+
+				//response admin's action
+				methods: {
+
+					//add books
+					adddetail() {
+						var _this = this;
+						_this.newsList.push({
+									name: _this.addDetail.name,
+									author: _this.addDetail.author,
+									isbn: _this.addDetail.isbn,
+									price: _this.addDetail.price,
+									press: _this.addDetail.press,
+									introduction: _this.addDetail.introduction,
+									id: _this.addDetail.id,
+									place: _this.addDetail.place,
+									type: _this.addDetail.type,
+									status: _this.addDetail.status
+						});
+
+						var formsheet = document.getElementById('formsheet');
+						//submit it
+						formsheet.action = formsheet.action + 'name=' + _this.addDetail.name + '&' + 'author=' + _this.addDetail.author + '&' + 'isbn=' + _this.addDetail.isbn + '&' + 'price=' + _this.addDetail.price + '&' + 'press=' + _this.addDetail.press + '&' + 'introduction=' + _this.addDetail.introduction + '&' + 'id=' + _this.addDetail.id + '&' + 'place=' + _this.addDetail.place + '&' + 'type=' + _this.addDetail.type + '&' + 'status=' + _this.addDetail.status;
+					},
+
+					//delete book
+					deletelist(bookname,i) {
+						this.newsList.splice(i, 1);
+						//locate to do books_db
+						var url = "/admin-delete-books?" + "bookname=" + bookname;
+						window.location.href = url;
+					},
+
+					//edit books
+					edit(item) { // item contain all params
+						this.editDetail = {
+											name: item.name,
+											author: item.author,
+											isbn: item.isbn,
+											price: item.price,
+											press: item.press,
+											introduction: item.introduction,
+											id: item.id,
+											place: item.place,
+											type: item.type,
+											status: item.status
+										};
+						//mask controll										
+						this.editlist = true
+						//judgement
+						this.editid = item.name;
+						
+					},
+
+					//sure update
+					update() {
+						alert("make sure the data is correct!");
+
+						var _this= this;
+						//upgrade new data
+						for(var i = 0;i < _this.newsList.length;i++) {
+							if(_this.newsList[i].name == this.editid) {
+								_this.newsList[i] = {
+									name: _this.editDetail.name,
+									author: _this.editDetail.author,
+									isbn: _this.editDetail.isbn,
+									price: _this.editDetail.price,
+									press: _this.editDetail.press,
+									introduction: _this.editDetail.introduction,
+									id: _this.editDetail.id,
+									place: _this.editDetail.place,
+									type: _this.editDetail.type,
+									status: _this.editDetail.status
+								};
+								//close mask
+								this.editlist = false;
+								//jump
+								var url = '/admin-edit-books?' + 'name=' + _this.editDetail.name + '&' + 'author=' + _this.editDetail.author + '&' + 'isbn=' + _this.editDetail.isbn + '&' + 'price=' + _this.editDetail.price + '&' + 'press=' + _this.editDetail.press + '&' + 'introduction=' + _this.editDetail.introduction + '&' + 'id=' + _this.editDetail.id + '&' + 'place=' + _this.editDetail.place + '&' + 'type=' + _this.editDetail.type + '&' + 'status=' + _this.editDetail.status;
+								window.location.href = url;
+							}
+						};
+					}
+				} // method endding
+			})
+		</script>
+
+	<!---------- page admin/do-books begin ---------->
+
+	</body>
+</html>

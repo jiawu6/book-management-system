@@ -1,0 +1,310 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <meta content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;" name="viewport">
+        <meta name="description" content="the books management system that have client and server"/>
+
+        <link rel="shortcut icon" href="favicon.ico">
+        <!-- active title -->        
+        <title><%= title %></title>
+
+        <!-- stylesheet -->
+        <link href="css/reset.css" rel="stylesheet">
+        <link href="css/css.css" rel="stylesheet">
+        <link href="css/responsive.css" rel="stylesheet">
+        <link href="fonts/fonts.css" rel="stylesheet">
+
+        <!-- javascript -->
+        <script src="js/jquery-1.11.2.min.js"></script>
+        <script src="js/jquery.easing.js"></script>
+        <script src="js/jquery.flexslider-min.js"></script>
+        <script src="js/jquery.mousewheel.js"></script>
+    </head>
+    <body class="salmonGlow">
+    <!---------- page details begin ---------->
+
+        <!---------- active loading ---------->
+        <div id="loading">
+        	<img src="img/loading.png" id="load">
+        	<div id="latido" class="loadingGlow"></div>
+            <div id="circle"></div>
+        </div>
+
+        <!---------- menu ---------->
+        <header>
+
+          <!---------- float logo_left ----------> 
+          <div class="logo">
+            <a href="/"><img src="img/logo-azul.png" class="blue"/></a>
+          </div>
+
+          <div class="btnMenu">
+            <i></i>
+            <i></i>
+            <i></i>
+          </div>
+          <nav>
+            <div class="botonera">
+              <i></i>
+              <ul>
+                <li>
+                  <a href="/?studentid=<%= studentid %>" class="act">home
+                    <i></i>
+                  </a>
+                </li>
+                <li>
+                  <!---------- active menu ---------->
+                  <% if(user) { %>
+                    <a href="/logout">log out
+                      <i></i>
+                    </a>
+                  <% } else { %>
+                    <a href="/login">log in
+                      <i></i>
+                    </a> 
+                  <% } %>             
+                </li>
+                <% if(studentid) { %>
+                  <li>
+                    <a href="/search?studentid=<%= studentid %>">search
+                      <i></i>
+                    </a>
+                  </li>
+                <% } %>
+              </ul>
+              <i></i>
+            </div>
+          </nav>
+        </header>
+
+        <!---------- float arrow at right ---------->
+        <div class="arrowsManifiesto">
+            <div class="arrowIr up"></div>
+            <div class="arrowIr down"></div>
+        </div> 
+
+        <!---------- all introduction ---------->        
+        <section id="manifiesto" class="salmonGlow in">  
+
+            <!---------- nav ---------->                    
+            <div class="wpManif layer" data-depth="0.0">
+                <div class="welcome">
+                    <hr class="fat blue">
+                    <p>
+                        <strong><%= bookname %></strong>
+                    </p>
+                    <b style="font-size: 30px;">search results:</b>
+                    <hr>
+                </div>
+
+                <!---------- first introduction ---------->
+                <% if(count >= 1) { %>           
+                <div class="boxManifiesto">
+                    <div class="num"><a id="located1" href="javascript:void(0);" onclick="located1()">1</a></div>
+                    <div class="txt">
+                        <div class="comillas"><strong>“</strong></div>
+                        <p><strong>Title/Author：</strong><%= name[0] %> / <%= author[0] %></p>
+                        <p><strong>ISBN/Price：</strong><%= ISBN[0] %> / <%= Price[0] %></p>
+                        <p><strong>Press：</strong><%= press[0] %></p>
+                        <p><strong>Introduction：</strong><%= Introduction[0] %></p>
+                    </div>
+                    <div class="bgComillas">“</div>
+                    <hr>
+                </div>
+                <% } %>
+
+                <!---------- second introduction ---------->
+                <% if(count >= 2) { %>                
+                <div class="boxManifiesto">
+                    <div class="num"><a id="located2" href="javascript:void(0);" onclick="located2()">2</a></div>
+                    <div class="txt">
+                        <div class="comillas"><strong>“</strong></div>
+                        <p><strong>Title/Author：</strong><%= name[1] %> / <%= author[1] %></p>
+                        <p><strong>ISBN/Price：</strong><%= ISBN[1] %> / <%= Price[1] %></p>
+                        <p><strong>Press：</strong><%= press[1] %></p>
+                        <p><strong>Introduction：</strong><%= Introduction[1] %></p>
+                    </div>
+                    <div class="bgComillas">“</div>
+                    <hr>
+                </div>
+                <% } %>                
+
+                <!---------- third introduction ---------->
+                <% if(count >= 3) { %>
+                    <div class="boxManifiesto">
+                        <div class="num"><a id="located3" href="javascript:void(0);" onclick="located3()">3</a></div>
+                        <div class="txt">
+                            <div class="comillas"><strong>“</strong></div>
+                            <p><strong>Title/Author：</strong><%= name[2] %> / <%= author[2] %></p>
+                            <p><strong>ISBN/Price：</strong><%= ISBN[2] %> / <%= Price[2] %></p>
+                            <p><strong>Press：</strong><%= press[2] %></p>
+                            <p><strong>Introduction：</strong><%= Introduction[2] %></p>
+                        </div>
+                        <div class="bgComillas">“</div>
+                        <hr>
+                    </div>
+                <% } %>
+
+<!-- 
+                <div class="boxManifiesto">
+                    <div class="num">4</div>
+                    <div class="txt">
+                        <div class="comillas"><strong>“</strong></div>
+                        <p><strong>Title/Author：</strong><%= title %> / <%= author %></p>
+                        <p><strong>ISBN/Price：</strong><%= title %> / <%= author %></p>
+                        <p><strong>Press：</strong><%= title %> / <%= author %></p>
+                        <p><strong>Introduction：</strong><%= title %> / <%= author %></p>
+                    </div>
+                    <div class="bgComillas">“</div>
+                    <hr>
+                </div>
+
+
+                <div class="boxManifiesto">
+                    <div class="num">5</div>
+                    <div class="txt">
+                        <div class="comillas"><strong>“</strong></div>
+                        <p><strong>Title/Author：</strong><%= title %> / <%= author %></p>
+                        <p><strong>ISBN/Price：</strong><%= title %> / <%= author %></p>
+                        <p><strong>Press：</strong><%= title %> / <%= author %></p>
+                        <p><strong>Introduction：</strong><%= title %> / <%= author %></p>
+                    </div>
+                    <div class="bgComillas">“</div>
+                    <hr>
+                </div>
+
+
+                <div class="boxManifiesto">
+                    <div class="num">6</div>
+                    <div class="txt">
+                        <div class="comillas"><strong>“</strong></div>
+                        <p><strong>Title/Author：</strong><%= title %> / <%= author %></p>
+                        <p><strong>ISBN/Price：</strong><%= title %> / <%= author %></p>
+                        <p><strong>Press：</strong><%= title %> / <%= author %></p>
+                        <p><strong>Introduction：</strong><%= title %> / <%= author %></p>
+                    </div>
+                    <div class="bgComillas">“</div>
+                    <hr>
+                </div>
+
+
+                <div class="boxManifiesto">
+                    <div class="num">7</div>
+                    <div class="txt">
+                        <div class="comillas"><strong>“</strong></div>
+                        <p><strong>Title/Author：</strong><%= title %> / <%= author %></p>
+                        <p><strong>ISBN/Price：</strong><%= title %> / <%= author %></p>
+                        <p><strong>Press：</strong><%= title %> / <%= author %></p>
+                        <p><strong>Introduction：</strong><%= title %> / <%= author %></p>
+                    </div>
+                    <div class="bgComillas">“</div>
+                    <hr>
+                </div>
+
+
+                <div class="boxManifiesto">
+                    <div class="num">8</div>
+                    <div class="txt">
+                        <div class="comillas"><strong>“</strong></div>
+                        <p><strong>Title/Author：</strong><%= title %> / <%= author %></p>
+                        <p><strong>ISBN/Price：</strong><%= title %> / <%= author %></p>
+                        <p><strong>Press：</strong><%= title %> / <%= author %></p>
+                        <p><strong>Introduction：</strong><%= title %> / <%= author %></p>
+                    </div>
+                    <div class="bgComillas">“</div>
+                    <hr>
+                </div>
+
+
+                <div class="boxManifiesto">
+                    <div class="num">9</div>
+                    <div class="txt">
+                        <div class="comillas"><strong>“</strong></div>
+                        <p>No somos únicos, <strong>por eso tratamos de ser los mejores.</strong></p>
+                    </div>
+                    <div class="bgComillas">“</div>
+                    <hr>
+                </div>
+
+
+                <div class="boxManifiesto">
+                    <div class="num">10</div>
+                    <div class="txt">
+                        <div class="comillas"><strong>“</strong></div>
+                        <p><strong>Lo más importante es nuestro equipo</strong>, por eso lo cuidamos.</p>
+                    </div>
+                    <div class="bgComillas">“</div>
+                    <hr>
+                </div>
+ -->
+               	<br>
+                <br>
+                <br>
+                <br>
+                <br>
+        
+            </div>
+        </section>
+
+
+        <footer>
+          <div class="social"> 
+            <a class="pastille facebook" target="_blank" href="http://facebook.com"> <span class="icon">facebook</span> <span class="icon roll"></span> </a> 
+            <a class="pastille twitter" target="_blank" href="http://twitter.com"> <span class="icon">twitter</span> <span class="icon roll"></span> </a> 
+            <a class="pastille instagram" target="_blank" href="http://instagram.com"> <span class="icon">instagram</span> <span class="icon roll"></span> </a> 
+          </div>
+        </footer>
+
+     <!---------- page details begin ---------->
+
+        <script src="js/parallax.js"></script>
+        <script>
+        $(document).ready(function(e) {
+            var scene3 = document.getElementById('manifiesto');
+        	var parallax = new Parallax(scene3);
+        	
+        	//ARROWS
+        	var alto = $(document).height();
+        	$('.arrowIr.up').click(function(e) {
+        		var scrol = $(window).scrollTop();
+                if(scrol > 300){
+        			var sube = scrol-300;
+        			$('html, body').animate({scrollTop: sube}, 600);
+        		}else{
+        			$('html, body').animate({scrollTop: 0}, 600);
+        		}
+            });
+        	$('.arrowIr.down').click(function(e) {
+        		var scrol = $(window).scrollTop();
+                if(scrol < (alto - 300)){
+        			var baja = scrol+300;
+        			$('html, body').animate({scrollTop: baja}, 600);
+        		}else{
+        			$('html, body').animate({scrollTop: alto}, 600);
+        		}
+            });
+        });
+        </script>
+        <script src="js/js.js"></script>
+        <script type="text/javascript">
+            function located1() {
+                var url = '/specific?bookname=' + '<%= name[0] %>' + "&" + "studentid=" + '<%= studentid %>';
+                document.getElementById("located1").setAttribute("href",url);
+            }
+        </script>
+        <script type="text/javascript">
+            function located2() {            
+                var url = '/specific?bookname=' + '<%= name[1] %>' + "&" + "studentid=" + '<%= studentid %>';
+                document.getElementById("located2").setAttribute("href",url);
+            }
+        </script>
+        <script type="text/javascript">
+            function located3() {                        
+                var url = '/specific?bookname=' + '<%= name[2] %>' + "&" + "studentid=" + '<%= studentid %>';
+                document.getElementById("located3").setAttribute("href",url);
+            }
+        </script>                
+
+    </body>
+</html>

@@ -1,0 +1,28 @@
+{
+  "name": "application-name",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "start": "node app.js",
+    "test": "mocha"
+  },
+  "dependencies": {
+    "connect-flash": "*",
+    "connect-mongo": "*",
+    "ejs": "*",
+    "events": "*",
+    "express": "3.21.2",
+    "mocha": "*",
+    "mongodb": "2.2.33",
+    "socket.io": "^1.7.4",
+    "superagent": "*"
+  },
+  "author": "",
+  "description": "1 功能分析",
+  "main": "app.js",
+  "directories": {
+    "test": "test"
+  },
+  "devDependencies": {},
+  "license": "ISC"
+}

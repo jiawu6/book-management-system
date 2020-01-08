@@ -1,0 +1,55 @@
+<!doctype html>
+<html ng-app="chatapp">
+  <head>
+    <meta charset="UTF-8">
+
+    <!-- active title -->
+    <title><%= title %>——<%= bookname %></title>
+
+    <!-- stylesheet -->
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/room.css">
+
+    <!-- javascript -->
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.7.4/socket.io.js"></script> <!-- run at cloud -->
+    <script type="text/javascript" src="js/jquery.js"></script>
+    <script type="text/javascript" src="js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="js/angular.js"></script>
+  </head>
+  <body>
+
+  <!---------- page chatroom begin ---------->
+
+    <div class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-header">
+          <a class="navbar-brand" href="/search?studentid=<%= studentid %>"><%= title %></a>
+        </div>
+      </div>
+    </div>
+    <div class="container" style="margin-top:100px;">
+      <div class="col-md-12">
+        <div class="panel panel-default room" ng-controller="RoomCtrl">
+          <div class="panel-heading room-header">ChatRoom</div>
+          <div class="panel-body room-content">
+            <div class="list-group messages" auto-scroll-to-bottom>
+              <!---------- bind data ---------->
+              <div class="list-group-item message" ng-repeat="message in messages track by $index">
+                <%= studentid %>: {{message}}
+              </div>
+            </div>
+            <form class="message-creator" ng-controller="MessageCreatorCtrl">
+              <div class="form-group">
+                <textarea required class="form-control message-input" ng-model="newMessage" ctrl-enter-break-line="createMessage()" placeholder="Press Enter to quick send"></textarea>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script type="text/javascript" src="js/chatroom.js"></script> <!-- core javascript -->
+
+  <!---------- page chatroom end ---------->
+
+  </body>
+</html>

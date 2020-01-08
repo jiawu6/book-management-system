@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+		<!-- active title -->
+		<title><%= title %></title>
+
+		<!-- stylesheet -->
+	    <link rel="stylesheet" href="//cdn.bootcss.com/semantic-ui/2.1.8/semantic.min.css">
+
+	    <!-- javascript -->
+	    <script src="//cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
+	    <script src="//cdn.bootcss.com/semantic-ui/2.1.8/semantic.min.js"></script>
+	</head>
+
+	<body>
+
+    <!---------- page search begin ---------->
+
+		<!-- define box -->
+		<div class="nav">
+		  <div class="ui grid">
+		    <div class="four wide column"></div>
+		    <div class="eight wide column">
+		    </div>
+		  </div>
+		</div>
+
+		<!-- define float menu -->
+		<div class="nav-setting">
+		    <div class="ui floating dropdown button">
+		      <i class="icon bars"></i>
+		      <div class="menu">
+		          <a class="item" href="/?studentid=<%= studentid %>"><h1>HOME</h1></a>		      	
+		          <a class="item" href="/search?studentid=<%= studentid %>"><h1>SEARCH</h1></a>
+		      </div>
+		    </div>
+		</div>	
+
+		<!-- define search area -->
+	    <div class="pane-content">
+	      <form class="sulair-search-bento-remote" action="/details?" method="post" id="search-block-form" accept-charset="UTF-8">
+	      	<div style="float: right;margin-right: 250px;margin-top: 100px;">
+	      	 <h1 class="element-invisible" style="margin-left: 35%;">Search Books</h1>
+			 <div class="form-item form-type-textfield form-item-q">
+				 <input placeholder="Enter the books you wish to search for..." type="text" id="edit-q" name="q"value="" size="50" maxlength="128" class="form-text" style="font-size: 25px;" />
+			</div>
+			 <div class="form-actions form-wrapper" id="edit-actions">
+				<input type="submit" id="edit-submit" value="Search" class="form-submit" style="font-size:26px;margin-top: 20px;margin-left: 40%;" onclick="blockform()" />
+			 </div>
+			</div>
+		   </form>    
+		</div>
+
+		<!-- listen user actions -->
+		  <script type="text/javascript">
+		   $(document).ready(function () {
+		      // action-show menu
+		      $('.ui.dropdown').dropdown();
+		    })
+		  </script>
+
+		  <script type="text/javascript">
+		  	function blockform() {
+		  		var formsheet = document.getElementById("search-block-form");
+		  		formsheet.action = formsheet.action + "studentid=" + '<%= studentid %>';
+		  	}
+		  </script>
+
+	<!---------- page search end ---------->
+
+  	</body>
+</html>

@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<!-- active title -->
+		<title><%= title %></title>
+
+		<!-- stylesheet -->
+	    <link rel="stylesheet" href="//cdn.bootcss.com/semantic-ui/2.1.8/semantic.min.css">
+
+	    <!-- javascript -->
+	    <script src="//cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
+	    <script src="//cdn.bootcss.com/semantic-ui/2.1.8/semantic.min.js"></script>
+
+	</head>
+	<body>
+
+	<!---------- page admin/edit-info begin ---------->
+
+		<!-- define box -->
+		<div class="nav">
+		  <div class="ui grid">
+		    <div class="four wide column"></div>
+		    <div class="eight wide column">
+		    </div>
+		  </div>
+		</div>
+
+		<!-- define float menu -->
+		<div class="nav-setting">
+		    <div class="ui floating dropdown button">
+		      <i class="icon bars"></i>
+		      <div class="menu">
+		      	<% if(admin) { %>
+		          <a class="item" href="/admin/logout"><h1>LOGOUT</h1></a>	
+		        <% } else { %>	      		
+		          <a class="item" href="/admin"><h1>LOGIN</h1></a>
+		        <% } %>
+		          <a class="item" href="/admin/regist-student"><h1>REGISTER</h1></a>
+		          <a class="item" href="/admin/edit-info"><h1>EDIT-INFO</h1></a>
+		          <a class="item" href="/do-books"><h1>DO-BOOKS</h1></a>
+		      </div>
+		    </div>
+		</div>	
+
+		<!-- define student searching area -->
+		<div class="form-item form-type-textfield form-item-q" style="margin-top: 100px;margin-left: 250px;">
+			<input placeholder="Enter the studentID you wish to edit for..." type="text" id="edit-q" name="q"value="" size="50" maxlength="128" class="form-text" style="font-size: 25px;" />
+		</div>
+		<div class="form-actions form-wrapper" id="edit-actions">
+			<input type="submit" id="edit-submit" name="op" value="Search" class="form-submit" style="font-size:30px;margin-top: 20px;margin-left: 42%;" onclick="getstuid()" />
+		</div>		
+
+		<!-- define personal info area -->
+
+		<!---------- form sheet start ---------->
+		<form method="post" action="/admin/edit-info?" id="formsheet">
+	        <div class="task-head" style="margin-top: 100px;position:relative;*zoom:1">
+	            <h2>Personal Info List</h2>
+	            <p class="line" style="float:right;width:91%;height:1px;background-color:#E9E9E9;margin-top:10px">
+	            </p>
+	            <!-- define link 'edit' to where -->
+				<% if(!opstring) { %>            
+				<a href="?op=edit" class="edit-information clickstat"  eid="click/grzx/myinfo/edit" eid_desc="edit" style="position:absolute;top:2px;right:0;background:#fff;width:100px;height:30px;padding-left:18px;color:#666;display:block;font-size:12px" onclick="setaction()" id="editing">
+					<i class="change_n"></i><h2 style="color: #00FF00;">edit</h2>
+				</a>
+				<% } else { %>
+				<input type="submit" class="ui button fluid" value="Submit" onclick="doform()" />
+				<% } %>
+			</div>
+
+			<!---------- judgement ---------->
+			<% if(!opstring) { %>
+				<div class="user-info-list" style="padding-bottom:20px;*zoom:1;">
+					<p style="width:50%;float:left;font-size:14px;padding:4px 0;font-size: 25px;color: #686868;">Student ID: <span> <%= studentid %></span></p>
+					<p style="width:50%;float:left;font-size:14px;padding:4px 0;font-size: 25px;color: #686868;">Name: <span><%= name %></span></p>      
+					<p style="width:50%;float:left;font-size:14px;padding:4px 0;font-size: 25px;color: #686868;">Password: <span><%= password %></span></p>      
+					<p style="font-size: 25px;color: #686868;">Mobile: <span><%= mobile %></span></p>      
+		        </div>
+		    <% } else { %>
+				<div class="user-info-list" style="padding-bottom:20px;*zoom:1;">
+					<p style="width:50%;float:left;font-size:14px;padding:4px 0;font-size: 25px;color: #686868;">Student ID: <input type="text" name="studentid"></p>
+					<p style="width:50%;float:left;font-size:14px;padding:4px 0;font-size: 25px;color: #686868;">Name: <input type="text" name="name"></p>      
+					<p style="width:50%;float:left;font-size:14px;padding:4px 0;font-size: 25px;color: #686868;">Password: <input type="text" name="password"></p>      
+					<p style="font-size: 25px;color: #686868;">Mobile: <input type="text" name="mobile"></p>      
+		        </div>
+		    <% } %>
+		</form>
+		<!---------- form sheet end ---------->
+
+		<!-- listen user actions -->
+		  <script type="text/javascript">
+		   $(document).ready(function () {
+		      // action-show menu
+		      $('.ui.dropdown').dropdown();
+		    })
+		  </script>
+
+		  <script type="text/javascript">
+		  	function getstuid() {
+		  		//get admin input
+		  		var input = document.getElementById('edit-q').value;
+		  		var location = '/admin/edit-info?' + 'studentid=' + input;
+		  		window.location.href = location;
+		  	}
+		  </script>
+
+		  <script type="text/javascript">
+		  	function setaction() {
+		  		var a_href = document.getElementById('editing');
+		  		var hrefer = a_href.href + '&' + 'studentid=' + '<%= studentid %>';
+		  		a_href.href = hrefer;
+		  		console.debug(">>check button search:",a_href.href + "\n");//wing
+		  	}
+		  </script>
+
+		  <script type="text/javascript">
+		  	function doform() {
+		  		var form_action = document.getElementById('formsheet');
+		  		var locat = form_action.action + 'studentid=' + '<%= studentid %>' + '&' + 'name=' + '<%= name %>' + '&' + 'mobile=' + '<%= mobile %>' + '&' + 'password=' + '<%= password %>';
+		  		form_action.action = locat;
+		  		console.debug(">>check button form action submit:",form_action.action + "\n");
+		  	}
+		  </script>		  
+
+	<!---------- page admin/edit-info end ---------->		  
+
+  	</body>
+</html>

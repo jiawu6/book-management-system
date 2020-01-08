@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+		<title><%= title %></title>
+
+		<link rel="stylesheet" href="//cdn.bootcss.com/semantic-ui/2.1.8/semantic.min.css">
+
+	    <script src="//cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
+	    <script src="//cdn.bootcss.com/semantic-ui/2.1.8/semantic.min.js"></script>
+
+	</head>
+	<body>
+
+    <!---------- page specific begin ---------->
+
+		<!-- define box -->
+		<div class="nav">
+		  <div class="ui grid">
+		    <div class="four wide column"></div>
+		    <div class="eight wide column">
+		    </div>
+		  </div>
+		</div>
+
+		<!-- define float menu -->
+		<div class="nav-setting">
+		    <div class="ui floating dropdown button">
+		      <i class="icon bars"></i>
+		      <div class="menu">
+		          <a class="item" href="/?studentid=<%= studentid %>"><h1>HOME</h1></a>		      	
+		          <a class="item" href="/search?studentid=<%= studentid %>"><h1>SEARCH</h1></a>
+		          <a class="item" href="/chatroom?studentid=<%= studentid %>&bookname=<%= name %>"><h1>CHAT</h1></a>
+		      </div>
+		    </div>
+		</div>
+
+		<!-- listen user actions -->
+		  <script type="text/javascript">
+		   $(document).ready(function () {
+		      // action-show menu
+		      $('.ui.dropdown').dropdown();
+		    })
+		  </script>
+
+		<!-- define Books Info area -->
+		<div style="position: absolute; top: 45px; left: 26%; height: 100%; z-index: 1;">
+		<div class="top">&nbsp;&nbsp;&nbsp;&nbsp;<h1 style="font-size: 65px;" id=a11 href="#" class="active1">Books Info</h1>
+		    
+		</div>
+		<br><h2>Basic Info</h2><br>
+		<form name="form1" method="post" action="ckgc.jsp">
+		<input type="hidden" name="kzh" value="zyk0492204">
+		<input type="hidden" name="dztm" value="">
+		<input type="hidden" name="dctm" value="">
+		<table width="100%" height="96%" border="0" cellspacing="0" cellpadding="0" align="center">
+		<tr>
+		<td valign="top">
+		<div id=1 style="margin-top: 5px;">
+		<table width="100%" border="0" cellspacing="0" cellpadding="0" align="center" height="400" class="table12">
+
+		<tr>
+		<td width="21%"><b style="font-size: 40px;">Title/Author：<b></td>
+		<td width="79%" ><a style="font-size: 20px;margin-left: 20px;margin-right: 5px;" href=# onclick="ztc_link('ztm','Wuthering Heights')"><%= name %></a>   /   <a style="font-size: 20px;margin-left: 5px;" href=# onclick="ztc_link('zrz','Emily Bonte')"><%= author %></a>&nbsp;</td>
+		</tr>
+
+		<tr>
+		<td width="21%" class="zt"  nowrap><b style="font-size: 40px;">ISBN/Price：</b></td>
+
+		<td width="79%" class="zt1" ><a style="font-size: 20px;margin-left: 20px;margin-right: 5px;" href=# onclick="ztc_link('isbn','978-7-03-049030-8')"><%= ISBN %></a>  /  <b style="font-size: 20px;margin-left: 5px;"><%= Price %></b>&nbsp;</td>
+		</tr>
+
+		<tr>
+		<td width="21%" class="zt" ><b style="font-size: 40px;">Press：</b></td>
+		<td width="79%" class="zt1"><b style="font-size: 20px;margin-left: 20px;margin-right: 5px;"><%= press %></b><b style="font-size: 20px;margin-left: 5px;">&nbsp; </b> </td>
+		</tr>
+
+		<tr>
+		<td width="21%" class="zt" ><b style="font-size: 40px;">Introduction：</b></td>
+		<td width="79%" class="zt1"><b style="font-size: 20px;margin-left: 20px;margin-right: 5px;"><%= Introduction %></b></td>
+		</tr>		
+
+<!-- 		<tr>
+		<td width="21%" height="18"  nowrap class="zt"><b style="font-size: 40px;">Topic：</b></td>
+		<td width="79%" class="zt1" ><a href=# onclick="ztclink('novel')" style="font-size: 20px;margin-left: 20px;margin-right: 5px;">novel</a><br> </td>
+		</tr> -->
+		</table>
+
+		<!-- define place area -->
+		<div style="font-size: 15px;">
+			<br>
+			<center>
+				<input type="button" name="fh" value="back" class="ui button fluid" style="font-size: 25px;" onClick="window.history.back(-1)" />
+			</center>
+			<table valign="top" width="95%" border="0" cellpadding="0" align=center cellspacing="0" class=bordermain>
+			<br><h2>Collection Info</h2><br>
+
+			<tr align=center height='100'>
+			<td nowrap class='borderhead'><b style="font-size: 18px;margin-right: 15px;">ID</b></td>
+			<td nowrap class='borderhead'><b style="font-size: 18px;margin-left: 15px;">Place</b></td>
+			<td nowrap class='borderhead'><b style="font-size: 18px;margin-left: 15px;">Type</b></td>
+			<td nowrap class='borderhead'><b style="font-size: 18px;margin-left: 15px;">Status</b></td>
+			<td nowrap class='borderhead'><b style="font-size: 18px;margin-left: 15px;">&nbsp;</b></td>
+			</tr>
+
+			<tr align=center>
+			<td nowrap class=bordertd><b style="font-size: 18px;margin-right: 15px;"><%= id %>&nbsp;</b></td>
+			<td class=bordertd><b style="font-size: 18px;margin-left: 15px;"><%= place %>&nbsp;</b></td>
+			<td class=bordertd><b style="font-size: 18px;margin-left: 15px;"><%= type %>&nbsp;</b></td>
+			<td class=bordertd><b style="font-size: 18px;margin-left: 15px;"><%= status %>&nbsp;</b></td>
+			<td class=bordertd><b style="font-size: 18px;margin-left: 15px;">&nbsp;&nbsp;</b></td>
+			</tr>
+			<% if(status == "exist") { %>
+				<center>
+					<input type="button" name="fh" value="borrow" class="ui button fluid" style="font-size: 25px;" onClick="load_borrow()" />
+				</center>
+			<% } else if (userdo == "borrow") { %>
+				<center>
+					<input type="button" name="fh" value="return" class="ui button fluid" style="font-size: 25px;" onClick="load_return()" />
+				</center>
+			<% } %>			
+
+<!-- 			<tr align=center>
+			<td nowrap class=bordertd><b style="font-size: 18px;margin-right: 15px;"><%= id %>&nbsp;</b></td>
+			<td class=bordertd><b style="font-size: 18px;margin-left: 15px;"><%= place %>&nbsp;</b></td>
+			<td class=bordertd><b style="font-size: 18px;margin-left: 15px;"><%= type %>&nbsp;</b></td>
+			<td class=bordertd><b style="font-size: 18px;margin-left: 15px;"><%= status %>&nbsp;</b></td>
+			<td class=bordertd><b style="font-size: 18px;margin-left: 15px;">&nbsp;&nbsp;</b></td>
+			</tr>
+
+			<tr align=center>
+			<td nowrap class=bordertd><b style="font-size: 18px;margin-right: 15px;"><%= id %>&nbsp;</b></td>
+			<td class=bordertd><b style="font-size: 18px;margin-left: 15px;"><%= place %>&nbsp;</b></td>
+			<td class=bordertd><b style="font-size: 18px;margin-left: 15px;"><%= type %>&nbsp;</b></td>
+			<td class=bordertd><b style="font-size: 18px;margin-left: 15px;"><%= status %>&nbsp;</b></td>
+			<td class=bordertd><b style="font-size: 18px;margin-left: 15px;">&nbsp;&nbsp;</b></td>
+			</tr> -->
+
+			</table>
+			<table valign="top" width="95%" border="0" cellpadding="0" align=center cellspacing="0" class=bordermain>
+			</tr>
+			</table>
+			</td>
+			</tr>
+			</table>
+			</form>
+			<br>
+		</div>
+    
+    <!---------- page specific end ---------->
+
+    <script type="text/javascript">
+    	function load_borrow() {
+    		window.location.href = '/transparent?' + 'bookname=' + '<%= name %>' + '&' + 'status=' + '<%= status %>' + '&' + 'author=' + '<%= author %>' + '&' + 'isbn=' + '<%= ISBN %>' + '&' + 'price=' + '<%= Price %>' + '&' + 'press=' + '<%= press %>' + '&' + 'introduction=' + '<%= Introduction %>' + '&' + 'id=' + '<%= id %>' + '&' + 'place=' + '<%= place %>' + '&' + 'type=' + '<%= type %>' + '&' + 'studentid=' + '<%= studentid %>' + '&' + 'operation=' + 'borrow';
+    	}
+    </script>
+
+    <script type="text/javascript">
+    	function load_return() {
+    		window.location.href = '/transparent?' + 'bookname=' + '<%= name %>' + '&' + 'status=' + '<%= status %>' + '&' + 'author=' + '<%= author %>' + '&' + 'isbn=' + '<%= ISBN %>' + '&' + 'price=' + '<%= Price %>' + '&' + 'press=' + '<%= press %>' + '&' + 'introduction=' + '<%= Introduction %>' + '&' + 'id=' + '<%= id %>' + '&' + 'place=' + '<%= place %>' + '&' + 'type=' + '<%= type %>' + '&' + 'studentid=' + '<%= studentid %>' + '&' + 'operation=' + 'empty';
+    	}
+    </script>
+
+  	</body>
+</html>

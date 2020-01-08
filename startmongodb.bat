@@ -1,0 +1,1 @@
+C:\MongoDB\bin\mongod.exe -dbpath C:\MongoDB\booksmanager
