@@ -18,7 +18,7 @@ var socket = require('socket.io');
 
 var app = express();
 
-//define httpserver
+
 var httpserver = http.createServer(app);
 
 // all environments
