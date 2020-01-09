@@ -5,7 +5,7 @@ const str = "http://localhost:5000";
 
 describe('test open all web pages',function () {
    beforeEach(function () {
-    console.info("test start now,good luck!\n");
+    console.info("test start now,good luck\n");
    });
 
    it('GET /',function (done) {
