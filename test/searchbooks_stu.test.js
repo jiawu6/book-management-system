@@ -3,7 +3,7 @@ const assert = require('assert');
 //import test javascript
 const details_stu = require('../models/searchbooks_stu.js');
 
-//create a new sample
+//create a new sample!
 var test_searchbooks_stu = new details_stu('e','Jane Eyre');
 
 //try test
