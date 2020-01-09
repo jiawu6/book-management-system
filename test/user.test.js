@@ -6,7 +6,7 @@ const add = require('../models/user.js');
 //create a new sample
 var test_user = new add('testing1','testing1','testuser1','1234567890','testuser1','testing1');
 
-//try test
+//try testing
 describe('#test user.js', () => {
 	beforeEach(function () {
         console.info('start test now,good luck...' + "\n");
