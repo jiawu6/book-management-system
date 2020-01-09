@@ -144,6 +144,7 @@ describe('test open all web pages',function () {
            })
    });
 
+
    it('GET /admin/logout',function (done) {
        request
            .get(str + '/admin/logout')
