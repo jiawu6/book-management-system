@@ -14,7 +14,7 @@
     "express": "3.21.2",
     "mocha": "*",
     "mongodb": "2.2.33",
-    "socket.io": "^1.7.4",
+    "socket.io": "^2.4.0",
     "superagent": "*"
   },
   "author": "",
